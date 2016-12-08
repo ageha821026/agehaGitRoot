@@ -1,14 +1,4 @@
-/*
-* Created on 2005. 2. 14.
- * * 2일차에 다음의 내용이 추가 되었습니다.
- * public boolean checkUser(int id, String password)
- * public List getCurrentUserList()
- * * 3일차에서 다음의 내용이 삭제 되었습니다.
- * public static void main(String[] args)
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
-     package db;
+package db;
 
 /**
  * @author LimSungHyun
@@ -47,86 +37,6 @@ public class UserDAO implements IDAO {
 		return con;
 	}
 
-	/**
-	 * get User List
-	 * 
-	 * @return User List
-	 */
-	public List getUserList() {
-		List retList = new ArrayList();
-		String eol = System.getProperty("line.separator", "\n");
-		String qry = "SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD, "
-				+ eol + " IS_USE FROM USER_TABLE"; 
-		//StringBuffer bSQL = new StringBuffer();	 //CR1857
-		qry = qry.trim();
-		String rowString = null;
-		Connection con = null;
-		Statement stmt = null;
-		ResultSet rset = null;
-		String[][] Back;
-		
-
-		try {
-			con = getConnection();
-			qry = "SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD,IS_USE"
-		                          + eol + "FROM USER_TABLE";
-		                stmt = con.createStatement();
-			rset = stmt.executeQuery(new String(qry));
-			rset.last();
-			Back = new String [rset.getRow()] [3];
-			rset.beforFirst();
-			
-			int idx = 0;
-			
-			while (rset.next()) {
-				User user = new User();
-				user.setId(rset.getInt(1));
-				user.setName(rset.getString(2));
-				user.setPassword(rset.getString(4));
-				user.setIsUse(rset.getString(5));
-				retList.add(user);
-				
-				// CR1949
-				Back[idx][0] = rset.getString("ID");
-				Back[idx][1] = rset.getString("NAME");
-				Back[idx][2] = rset.getString("IS_USE");
-				idx++; 
-				
-			}
-                        
-                        
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (rset != null) {
-				try {
-					rset.close();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		}
-		return retList;
-
-	}
 
 	public User getUserByID(int id) {
 		String qry = "SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD, "
@@ -543,21 +453,6 @@ public class UserDAO implements IDAO {
 
 	}
 	
-// 삭제됨
-//	public static void main(String[] args) {
-//		UserDAO dao = new UserDAO();
-//		System.out.println(">>> getUserList()");
-//		List users = dao.getUserList();
-//		Iterator userItr = users.iterator();
-//		while (userItr.hasNext()) {
-//			System.out.println(userItr.next().toString());
-//		}
-//		System.out.println(">>> getUserByID()");
-//		System.out.println(dao.getUserByID(2));
-//		System.out.println(">>> getUserByName()");
-//		System.out.println(dao.getUserByName("테스트 사용자"));
-//
-//	}
 
 	public class MandatoryRequiredException extends Exception {
 		public MandatoryRequiredException(String message) {

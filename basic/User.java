@@ -16,7 +16,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class basic extends JApplet{  //CR2053, CR2476
-   @AnnotationTest
+
 	basic() {
         JApplet(super.JApplet);
 		super.JApplet = "A";
@@ -36,11 +36,6 @@ public class User extends AbUser{
 	private String password;
 	private String isUse;
 	
-	//Use Generic Type Class 
-	public <QA extends Comparable<? super QQ>>QQ max(Collection<QQ> coll) {
-			return null;
-		}
-		
 	/**
 	 * @return Returns the id.
 	 */
