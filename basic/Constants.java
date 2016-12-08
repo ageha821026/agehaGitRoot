@@ -13,14 +13,9 @@ package basic;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class Constants {
-	@AnnotationTest
 	public static String CN_JDBC_URL = "jdbc:oracle:thin:@localhost:1521:SNU92";
 	
 	public static String CN_JDBC_USER = "scott";
 
 	public static String CN_JDBC_PASSWORD = "tiger";
-	
-	private static Constants singleton ;//= new Constants();
-	public  static Constants getInstance() {return singleton;} //CR5855
-
 }

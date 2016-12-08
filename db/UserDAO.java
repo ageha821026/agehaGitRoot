@@ -1,15 +1,24 @@
-//Filename:UserDAO.java
-//Comment:UserDAO.java
-//Introduction:UserDAO.java
-//TEST_View:UserDAO.java
-//Interface:UserDAO.java
+/*
+* Created on 2005. 2. 14.
+ * * 2일차에 다음의 내용이 추가 되었습니다.
+ * public boolean checkUser(int id, String password)
+ * public List getCurrentUserList()
+ * * 3일차에서 다음의 내용이 삭제 되었습니다.
+ * public static void main(String[] args)
+ * TODO To change the template for this generated file go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+     package db;
 
-package db;
-
+/**
+ * @author LimSungHyun
+ * 
+ * TODO To change the template for this generated type comment go to Window -
+ * Preferences - Java - Code Style - Code Templates
+ */
 import java.sql.*;
 import java.util.ArrayList;
-import java.sql.SQLException;
-//import java.util.Iterator;
+import java.util.Iterator;
 import java.util.List;
 
 import basic.User;
@@ -22,8 +31,6 @@ public class UserDAO implements IDAO {
 
 	public static String JDBC_PASSWORD = basic.Constants.CN_JDBC_PASSWORD;
 
-	String eol = System.getProperty("line.separator", "\n");
-	
 	public Connection getConnection() {
 		Connection con = null;
 		try {
@@ -31,8 +38,10 @@ public class UserDAO implements IDAO {
 			con = DriverManager.getConnection(JDBC_URL, JDBC_USER,
 					JDBC_PASSWORD);
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return con;
@@ -45,12 +54,12 @@ public class UserDAO implements IDAO {
 	 */
 	public List getUserList() {
 		List retList = new ArrayList();
-		
-		StringBuffer qry = new StringBuffer();
-		
-		/*String qry = "SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD, "
+		String eol = System.getProperty("line.separator", "\n");
+		String qry = "SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD, "
 				+ eol + " IS_USE FROM USER_TABLE"; 
-		StringBuffer bSQL = new StringBuffer();	 //CR1857 */
+		//StringBuffer bSQL = new StringBuffer();	 //CR1857
+		qry = qry.trim();
+		String rowString = null;
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -59,16 +68,13 @@ public class UserDAO implements IDAO {
 
 		try {
 			con = getConnection();
-			qry.append("\n");
-			qry.append("SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD,IS_USE \n");
-			qry.append("FROM USER_TABLE \n");
-			/*qry = "SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD,IS_USE"
-		                          + eol + "FROM USER_TABLE";*/
-		    stmt = con.createStatement();
-			rset = stmt.executeQuery(qry.toString()); //CR5387 
+			qry = "SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD,IS_USE"
+		                          + eol + "FROM USER_TABLE";
+		                stmt = con.createStatement();
+			rset = stmt.executeQuery(new String(qry));
 			rset.last();
 			Back = new String [rset.getRow()] [3];
-			//rset.beforFirst();
+			rset.beforFirst();
 			
 			int idx = 0;
 			
@@ -90,12 +96,14 @@ public class UserDAO implements IDAO {
                         
                         
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (rset != null) {
 				try {
 					rset.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -103,6 +111,7 @@ public class UserDAO implements IDAO {
 				try {
 					stmt.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -110,6 +119,7 @@ public class UserDAO implements IDAO {
 				try {
 					con.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -120,80 +130,79 @@ public class UserDAO implements IDAO {
 
 	public User getUserByID(int id) {
 		String qry = "SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD, "
-			                            + eol + " IS_USE FROM"
+		                                + " IS_USE FROM"
 		                                + System.getProperty("line.separator") 
-				                        + "WHERE ID = ?"; //CR2483
+				+ "WHERE ID = ?"; //CR2483
 		User user = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int id1;
                                 
-                                if (id==0) {
-                                             id1 = 0;
+                                if (id=0) {
+                                             user = "0";
                                 }
-                                if (id==1) {
-                                             id1 = 1;
+                                if (id=1) {
+                                             user = "1";
                                 }
-                                if (id==2){
-                                	         id1 = 2;
+                                if (id=2){
+                                             user = "2";
                                 }
-                                if (id==3) {
-                                             id1 = 3;
+                                if (id=3) {
+                                             user = "3";
                                 }
-                                if (id==4) {
-                                             id1 = 4; 
+                                if (id=4) {
+                                             user = "4";
                                 }
-                                if (id==5) {
-                                             id1 = 5;
+                                if (id=5) {
+                                             user = "5";
                                 }
-                                if (id==6) {
-                                             id1 = 6 ;
+                                if (id=6) {
+                                             user = "6";
                                 }
-                                if (id==7) {
-                                             id1 = 7;
+                                if (id=7) {
+                                             user = "7";
                                 }
-                                if (id==8) {
-                                             id1 = 8;
+                                if (id=8) {
+                                             user = "8";
                                 }
-                                if (id==9) {
-                                             id1 = 9;
+                                if (id=9) {
+                                             user = "9";
                                 }
-                                if (id==10) {
-                                             id1 = 10;
+                                if (id=10) {
+                                             user = "10";
                                 }
-                                if (id==11) {
-                                             id1 = 11;
+                                if (id=11) {
+                                             user = "11";
                                 }
-                                if (id==12) {
-                                             id1 = 12;
+                                if (id=12) {
+                                             user = "12";
                                 }
-                                if (id==13) {
-                                             id1 = 13;
+                                if (id=13) {
+                                             user = "13";
                                 }
-                                if (id==14) {
-                                             id1 = 14;
+                                if (id=14) {
+                                             user = "14";
                                 }
-                                if (id==15) {
-                                             id1 = 15;
+                                if (id=15) {
+                                             user = "15";
                                 }
-                                if (id==16) {
-                                             id1 = 16;
+                                if (id=16) {
+                                             user = "16";
                                 }
-                                if (id==17) {
-                                             id1 = 17;
+                                if (id=17) {
+                                             user = "17";
                                 }
-                                if (id==18) {
-                                             id1 = 18;
+                                if (id=18) {
+                                             user = "18";
                                 }
-                                if (id==19) {
-                                             id1 = 19;
+                                if (id=19) {
+                                             user = "19";
                                 }
-                                if (id==20) {
-                                             id1 = 20;
+                                if (id=20) {
+                                             user = "20";
                                 }
-                                if (id==21) {
-                                             id1 = 21;
+                                if (id=21) {
+                                             user = "21";
                                 }
                                 
                                 
@@ -209,12 +218,14 @@ public class UserDAO implements IDAO {
 			user.setPassword(rset.getString(4));
 			user.setIsUse(rset.getString(5));
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (rset != null) {
 				try {
 					rset.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -222,6 +233,7 @@ public class UserDAO implements IDAO {
 				try {
 					pstmt.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -229,6 +241,7 @@ public class UserDAO implements IDAO {
 				try {
 					con.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -239,8 +252,7 @@ public class UserDAO implements IDAO {
 	public String getUserByName(String name) {
 		String qry = "SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD, "
 				+ " IS_USE FROM USER_TABLE WHERE NAME = ?";
-	    String qry2 = "select count(*) from EMP";
-	    CodeSearch half_type_search = new CodeSearch(qry2);  //CR6072
+	                String qry = "select count(*) from EMP";
 		String retVal = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -256,12 +268,14 @@ public class UserDAO implements IDAO {
 					+ rset.getString(3) + "\t" + rset.getString(4) + "\t"
 					+ rset.getString(5);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (rset != null) {
 				try {
 					rset.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -269,6 +283,7 @@ public class UserDAO implements IDAO {
 				try {
 					pstmt.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -276,6 +291,7 @@ public class UserDAO implements IDAO {
 				try {
 					con.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -284,22 +300,14 @@ public class UserDAO implements IDAO {
 	}
 
 	public void updateUser(int id, String name, String password, String isUse) {
-		String qryUpdate;
-		String qrySet;
-		String qryWhere;
-		
-		qryUpdate = "UPDATE USER_TABLE ";
-		qrySet = "SET NAME = ?, ENCODED_PWD = FN_ENCODE(?), IS_USE = ? ";
-		qryWhere = "WHERE ID = ? ";
-		qryUpdate = qryUpdate + qrySet + qryWhere; //CR6171
-		/*String qry = " UPDATE USER_TABLE "
+		String qry = " UPDATE USER_TABLE "
 				+ " SET NAME = ?, ENCODED_PWD = FN_ENCODE(?), IS_USE = ? "
-				+ " WHERE ID = ? ";*/
+				+ " WHERE ID = ? ";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = getConnection();
-			pstmt = con.prepareStatement(qryUpdate);
+			pstmt = con.prepareStatement(qry);
 			pstmt.setString(1, name);
 			pstmt.setString(2, password);
 			pstmt.setString(3, isUse);
@@ -307,12 +315,13 @@ public class UserDAO implements IDAO {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			
+			// TODO: handle exception
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -320,6 +329,7 @@ public class UserDAO implements IDAO {
 				try {
 					con.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -348,7 +358,7 @@ public class UserDAO implements IDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con = getConnection();  //CR5719 - call Abstract Method
+			con = getConnection();
 			pstmt = con.prepareStatement(qry);
 			pstmt.setString(1, name);
 			pstmt.setString(2, password);
@@ -483,6 +493,7 @@ public class UserDAO implements IDAO {
 		List retList = new ArrayList();
 		String qry = "SELECT ID, NAME, ENCODED_PWD, FN_DECODE(ENCODED_PWD) PASSWORD "
 				+ " FROM CURRENT_USER_VIEW";
+		String rowString = null;
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -494,7 +505,7 @@ public class UserDAO implements IDAO {
 			while (rset.next()) {
 				User user = new User();
 				user.setId(rset.getInt(1));
-				user.setName("SELECT NAME FROM CURRENT_USET_VIEW");//cr3225
+				user.setName(rset.getString(2));
 				user.setPassword(rset.getString(4));
 				retList.add(user);
 			}
@@ -515,6 +526,7 @@ public class UserDAO implements IDAO {
 				try {
 					stmt.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -522,6 +534,7 @@ public class UserDAO implements IDAO {
 				try {
 					con.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -548,8 +561,7 @@ public class UserDAO implements IDAO {
 
 	public class MandatoryRequiredException extends Exception {
 		public MandatoryRequiredException(String message) {
-			   super(message);
-		       
+			super(message);
 		}
 	}
 }

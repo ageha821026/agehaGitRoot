@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,16 +75,17 @@ public class CallSPDAO implements IDAO {
 				user.setName(rset.getString("NAME"));
 				user.setPassword(rset.getString("PASSWORD"));
 				retList.add(user);
-				
 			}
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (rset != null) {
 				try {
 					rset.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -91,6 +93,7 @@ public class CallSPDAO implements IDAO {
 				try {
 					pstmt.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -98,6 +101,7 @@ public class CallSPDAO implements IDAO {
 				try {
 					con.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -123,12 +127,14 @@ public class CallSPDAO implements IDAO {
 			int retVal = cstmt.executeUpdate();
 			if (retVal>0) retBool = true;
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (cstmt != null) {
 				try {
 					cstmt.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -136,6 +142,7 @@ public class CallSPDAO implements IDAO {
 				try {
 					con.close();
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -145,14 +152,8 @@ public class CallSPDAO implements IDAO {
 	}
 	
 	public static void main(String[] args) {
-		List list = new ArrayList();
-		
 		CallSPDAO spDAO = new CallSPDAO();
-		list.add(spDAO);
-		
-		if (list.get(0) instanceof CallSPDAO) {
-			System.out.println(((CallSPDAO)list.get(0)).callSP());
-		}
+		System.out.println(spDAO.callSP());
 		System.out.println(spDAO.getUserbyView());
 	}
 }

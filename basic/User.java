@@ -1,27 +1,46 @@
+/*
+ * Created on 2005. 2. 18.
+ *
+ * TODO To change the template for this generated file go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
 package basic;
 
-import basic.AbUser;
-//import java.sql.Connection;
-//import java.sql.SQLException;
+/**
+ * @author LimSungHyun
+ *
+ * TODO To change the template for this generated type comment go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+import java.sql.Connection;
+import java.sql.SQLException;
 
-public class User <E extends AbUser<? extends Collection<? extends Iterable>>> {
+public class basic extends JApplet{  //CR2053, CR2476
+   @AnnotationTest
+	basic() {
+        JApplet(super.JApplet);
+		super.JApplet = "A";
+	String result = (String) super.insert(getNameSpce()+".insertFile",file);	//CR2003
+	}
+	
+    void case1() throws SQLException {
+    	Connection conn = null;
+        conn.prepareStatement("a");
+    }
+    
+}
+
+public class User extends AbUser{
 	private int id;
 	private String name;
 	private String password;
 	private String isUse;
 	
 	//Use Generic Type Class 
-	public <QQ extends Comparable<? super QQ>>QQ max(Collection<QQ> coll) {
+	public <QA extends Comparable<? super QQ>>QQ max(Collection<QQ> coll) {
 			return null;
 		}
-	//	Use Method Oberriding, Use Parameter Association
-	public enum NUM {
-		ONE { String val() { return ""+1;}; String val2() { return ""+4;} },
-		TWO { String val() { return ""+2;}; String val2() { return ""+5;} },
-		THREE { String val() { return ""+3;}; String val2() { return ""+6;} };
-		abstract String val();
-		abstract String val2();
-	}	 
+		
 	/**
 	 * @return Returns the id.
 	 */
