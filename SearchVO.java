@@ -29,6 +29,8 @@ public class SearchVO implements Serializable {
 	private int recordCountPerPage = 10;
 	private String searchCondition = "";
 	private String searchKeyword = "";
+	private String harin = "harin";
+	private String subin = "subin";
     
 	public int getPageIndex() {
 		return pageIndex;
